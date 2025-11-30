@@ -1,30 +1,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Support Assistant</title>
-<link rel="stylesheet" href="/static/style.css">
+    <title>Support Assistant</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-<h2>Support Assistant</h2>
-<div id="chatbox"></div>
-<input type="text" id="msg" placeholder="Type your message..." />
-<button onclick="sendMsg()">Send</button>
+
+<div class="chat-container">
+    <h2>💖 Support Assistant</h2>
+
+    <div id="chat-box"></div>
+
+    <!-- Suggestion dropdown -->
+    <div id="suggestions" class="suggestions"></div>
+
+    <div class="input-area">
+        <input type="text" id="user-input" placeholder="Type your message..." onkeyup="showSuggestions(this.value)">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
 
 <script>
-function sendMsg() {
-  let message = document.getElementById("msg").value;
-  fetch("/chat", {
-    method: "POST",
-    headers: {"Content-Type": "application/x-www-form-urlencoded"},
-    body: "message=" + message
-  })
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById("chatbox").innerHTML +=
-      "<p><b>You:</b> " + message + "</p>" +
-      "<p><b>Bot:</b> " + data.reply + "</p>";
-    document.getElementById("msg").value = "";
-  });
+async function sendMessage() {
+    let userInput = document.getElementById("user-input");
+    let message = userInput.value.trim();
+    if(message === "") return;
+
+    // show user bubble
+    document.getElementById("chat-box").innerHTML += `<div class='user-msg'>${message}</div>`;
+    userInput.value = "";
+    document.getElementById("suggestions").innerHTML = "";
+
+    // send to backend
+    let response = await fetch("/get", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message })
+    });
+
+    let data = await response.json();
+    document.getElementById("chat-box").innerHTML += `<div class='bot-msg'>${data.reply}</div>`;
+}
+
+async function showSuggestions(text) {
+    if (text.length < 2) {
+        document.getElementById("suggestions").innerHTML = "";
+        return;
+    }
+
+    let response = await fetch(`/suggest?text=${text}`);
+    let suggestions = await response.json();
+
+    let html = "";
+    suggestions.forEach(q => {
+        html += `<div class='suggest-item' onclick="selectSuggestion('${q}')">${q}</div>`;
+    });
+
+    document.getElementById("suggestions").innerHTML = html;
+}
+
+function selectSuggestion(q) {
+    document.getElementById("user-input").value = q;
+    document.getElementById("suggestions").innerHTML = "";
 }
 </script>
 </body>
