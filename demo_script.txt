@@ -1,0 +1,40 @@
+Project Name: AI Support Assistant / FAQ & Ticket Resolver Agent
+
+Hello, I am Meghashree and this is my AI Support Assistant project developed for Rooman’s AI Internship Challenge.
+
+This agent is designed to resolve customer FAQs instantly using a knowledge base, and when a query doesn't match, it automatically converts the message into a support ticket for the admin team.
+
+Let me show the demo:
+
+On the homepage, we see a clean and user-friendly pink-themed chat UI.
+I will type the question: "How to track my order?"
+The agent immediately responds with the correct answer from the knowledge base.
+
+Another feature is smart suggestions — as I type some text, for example “what is”, the system automatically recommends relevant questions, making it easy for the user to select instead of typing the full query.
+
+Now let’s type a question that is NOT available in the FAQ list:
+"Can I change my registered mobile number?"
+The bot is unable to answer, so it automatically raises a ticket and gives a message:
+"Thank you! Your issue has been converted to a ticket. Our support team will contact you."
+
+This ensures that no customer query is ignored.
+
+Next, I will open the admin panel:
+Here the admin can see the list of tickets with status open or closed.
+When the admin solves a ticket, clicking “Close” will update the status.
+
+This system combines FAQ automation + ticket management in one AI agent.
+
+Tech Stack Used:
+• Python
+• Flask + Streamlit UI
+• JSON Knowledge Base for FAQs
+• SQLite Database for Ticket Storage
+• Frontend: HTML, CSS & JavaScript
+
+Future Improvements:
+• Login system for admin
+• Email notification on ticket creation
+• Add RAG + Vector Database for better AI responses
+
+Thank you for watching this demo.

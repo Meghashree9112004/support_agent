@@ -1,0 +1,21 @@
+User (Browser)
+   |
+   |  (1) HTTP POST / GET
+   v
+Flask App (app.py)
+   - routes:
+       /    -> chat.html (UI)
+       /chat (POST) -> accepts message -> get_faq_answer -> reply OR create_ticket
+       /suggest -> returns matching FAQ questions (autocomplete)
+       /admin -> admin.html (list tickets)
+       /close_ticket/<id> -> close a ticket
+   - functions:
+       get_faq_answer() -> loads faqs.json -> difflib matching
+       create_ticket()  -> inserts into SQLite database database.db
+   - files:
+       faqs.json, database.db, templates/, static/
+
+   |
+   v
+SQLite (database.db)
+   - tickets table: id, query, status, created_time (optional)

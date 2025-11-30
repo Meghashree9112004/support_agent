@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Support Assistant</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff9ecb, #ff6fb1);
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .chat-container {
+            width: 460px;
+            background: white;
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: 0px 0px 20px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #e6007e;
+        }
+
+        #chat-box {
+            height: 350px;
+            overflow-y: auto;
+            border-radius: 12px;
+            padding: 12px;
+            background: #ffe6f3;
+        }
+
+        .user-msg, .bot-msg {
+            padding: 12px;
+            margin: 8px 0;
+            max-width: 85%;
+            border-radius: 18px;
+            color: white;
+            font-size: 15px;
+        }
+
+        .user-msg {
+            background: #ff3c99;
+            margin-left: auto;
+            border-bottom-right-radius: 2px;
+        }
+
+        .bot-msg {
+            background: #b40069;
+            border-bottom-left-radius: 2px;
+        }
+
+        .input-area {
+            margin-top: 12px;
+            display: flex;
+            gap: 10px;
+        }
+
+        #user-input {
+            flex: 1;
+            padding: 12px;
+            border-radius: 14px;
+            border: 2px solid #ff7dbd;
+            font-size: 15px;
+        }
+
+        button {
+            padding: 12px 22px;
+            background: #ff007f;
+            color: white;
+            border-radius: 14px;
+            border: none;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #d6006f;
+        }
+
+        /* Suggestions */
+        #suggestions {
+            background: white;
+            position: relative;
+            max-height: 140px;
+            overflow-y: auto;
+            border-radius: 10px;
+            margin-top: 5px;
+            box-shadow: 0px 0px 8px rgba(0,0,0,0.2);
+        }
+
+        .suggest-item {
+            padding: 8px 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #ffd6eb;
+        }
+
+        .suggest-item:hover {
+            background: #ffe2f3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-container">
+    <h2>💖 Support Assistant</h2>
+    <div id="chat-box"></div>
+
+    <!-- Auto Suggest -->
+    <div id="suggestions"></div>
+
+    <div class="input-area">
+        <input type="text" id="user-input" placeholder="Type your message..." onkeyup="showSuggestions(this.value)">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+async function sendMessage() {
+    let input = document.getElementById("user-input");
+    let msg = input.value.trim();
+    if (msg === "") return;
+
+    document.getElementById("chat-box").innerHTML += `<div class='user-msg'>${msg}</div>`;
+    input.value = "";
+    document.getElementById("suggestions").innerHTML = "";
+
+    let response = await fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `message=${msg}`
+    });
+
+    let data = await response.json();
+    document.getElementById("chat-box").innerHTML += `<div class='bot-msg'>${data.reply}</div>`;
+}
+
+async function showSuggestions(text) {
+    if (text.length < 2) {
+        document.getElementById("suggestions").innerHTML = "";
+        return;
+    }
+
+    let response = await fetch(`/suggest?text=${text}`);
+    let suggestions = await response.json();
+
+    let html = "";
+    suggestions.forEach(q => {
+        html += `<div class='suggest-item' onclick="selectSuggestion('${q}')">${q}</div>`;
+    });
+
+    document.getElementById("suggestions").innerHTML = html;
+}
+
+function selectSuggestion(q) {
+    document.getElementById("user-input").value = q;
+    document.getElementById("suggestions").innerHTML = "";
+}
+</script>
+
+</body>
+</html>

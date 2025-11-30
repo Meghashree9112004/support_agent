@@ -1,0 +1,18 @@
+
+<h2>Admin — Tickets Panel</h2>
+<table border="1">
+<tr><th>ID</th><th>Query</th><th>Status</th><th>Action</th></tr>
+{% for t in tickets %}
+<tr>
+<td>{{ t[0] }}</td>
+<td>{{ t[1] }}</td>
+<td>{{ t[2] }}</td>
+<td>
+{% if t[2] == "open" %}
+<a href="/close_ticket/{{ t[0] }}">Close</a>
+{% else %} Closed {% endif %}
+</td>
+</tr>
+{% endfor %}
+</table>
+

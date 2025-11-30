@@ -1,0 +1,43 @@
+[
+  {"question": "How to reset password?", "answer": "Click the Forgot Password option and follow instructions."},
+  {"question": "What is the refund policy?", "answer": "Refunds are processed within 7 business days after approval."},
+  {"question": "How to contact support?", "answer": "You can email support@company.com or chat with our bot."},
+  {"question": "How to track my order?", "answer": "Log in and go to Orders > Track Order."},
+  {"question": "Is cash on delivery available?", "answer": "Yes, COD is available for selected locations."},
+
+  {"question": "How do I cancel my order?", "answer": "Go to Orders > Select Order > Cancel. Cancellation is allowed until the item is shipped."},
+  {"question": "Why was my payment deducted but order not placed?", "answer": "If the amount is debited but order not created, the money will be refunded automatically within 3–5 working days."},
+  {"question": "How to change delivery address?", "answer": "You can update the delivery address before the order is shipped from the Orders page."},
+  {"question": "Do you provide gift wrapping?", "answer": "Yes, gift wrapping is available for selected products at checkout."},
+  {"question": "Can I reschedule my delivery?", "answer": "Yes, you can reschedule via the Delivery Partner link shared on SMS/Email."},
+
+  {"question": "How to apply a coupon code?", "answer": "Enter the coupon code on the checkout page before payment."},
+  {"question": "Why is my coupon not working?", "answer": "Coupons have terms. Ensure your order meets the minimum value and category restrictions."},
+  {"question": "Is EMI available?", "answer": "Yes, EMI options are available on eligible products based on bank rules."},
+  {"question": "What payment methods are accepted?", "answer": "We accept UPI, Debit/Credit Cards, Net Banking, Wallets, and COD."},
+  {"question": "Why is my order delayed?", "answer": "Unexpected logistics delays may occur. You can check live updates in Orders > Track Order."},
+
+  {"question": "How to return a product?", "answer": "Go to Orders > Select Order > Return. Follow the pickup instructions."},
+  {"question": "What items are not eligible for return?", "answer": "Certain categories like innerwear, health essentials, and customized products are non-returnable."},
+  {"question": "How long does the return pickup take?", "answer": "Return pickups are usually completed within 48–72 hours."},
+  {"question": "When will I receive replacement?", "answer": "Replacement will be processed once the returned item is quality checked."},
+  {"question": "Can I change the payment mode after placing the order?", "answer": "No, payment mode cannot be changed after the order is placed."},
+
+  {"question": "How to update my phone number?", "answer": "Go to My Profile > Edit Profile to update phone number and email."},
+  {"question": "How to delete my account?", "answer": "You can request account deletion by sending an email to support@company.com."},
+  {"question": "Why am I not receiving OTP?", "answer": "Ensure network availability and check spam/blocked messages. Try resending OTP after 1 minute."},
+  {"question": "How to unsubscribe from marketing emails?", "answer": "Click the unsubscribe link at the bottom of any promotional email."},
+  {"question": "How to check my wallet balance?", "answer": "Go to My Account > Wallet to view your available balance."},
+
+  {"question": "Why is my order marked as delivered but I did not receive it?", "answer": "Please wait 24 hours as we sometimes receive delayed status updates. If not resolved, contact support for investigation."},
+  {"question": "Can someone else collect my order?", "answer": "Yes, family members and neighbors can collect the order if they confirm the OTP to the delivery agent."},
+  {"question": "Do you offer installation services?", "answer": "Installation is available for selected appliances and furniture and will be arranged after delivery."},
+  {"question": "Do products come with warranty?", "answer": "Manufacturer warranty applies to eligible products. Warranty details are mentioned on the product page."},
+  {"question": "Can I request a callback from support?", "answer": "Yes, you can request a callback using the Contact Support form."},
+
+  {"question": "What are your customer support hours?", "answer": "Support is available from 9 AM to 9 PM on weekdays and 10 AM to 6 PM on weekends."},
+  {"question": "Are international deliveries available?", "answer": "Currently international delivery is not supported; we only deliver within India."},
+  {"question": "Why was my return request rejected?", "answer": "Return requests may be rejected if the item is damaged, used, or missing accessories."},
+  {"question": "Do you store my payment information?", "answer": "We do not store CVV or card data. All payments are processed securely through certified payment gateways."},
+  {"question": "How to download invoice for my order?", "answer": "Go to Orders > Select Order > Download Invoice."}
+]
