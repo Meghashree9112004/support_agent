@@ -1,41 +1,60 @@
 import streamlit as st
 import json
-import sqlite3
 import difflib
 
-st.set_page_config(page_title="AI Support Assistant", page_icon="💖", layout="centered")
+# Load FAQ questions
+with open("faqs.json", "r") as f:
+    faqs = json.load(f)
+questions = [faq["question"] for faq in faqs]
 
-# Load FAQs
-def get_faq_answer(user_msg):
-    with open("faqs.json", "r") as f:
-        faqs = json.load(f)
-    questions = [faq["question"] for faq in faqs]
-    match = difflib.get_close_matches(user_msg, questions, n=1, cutoff=0.6)
-    if match:
-        for faq in faqs:
-            if faq["question"] == match[0]:
-                return faq["answer"]
-    return None
+st.markdown("""
+<style>
+body {background-color: #ffb3d9;}
+.chat-box {
+    background-color: #ffe6f2;
+    padding: 20px;
+    border-radius: 20px;
+    height: 400px;
+}
+.input-box {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 2px solid #ff4da6;
+}
+.send-btn {
+    background-color: #ff027c;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+</style>
+""", unsafe_allow_html=True)
 
-# Create ticket if no matching FAQ
-def create_ticket(query):
-    conn = sqlite3.connect("database.db")
-    conn.execute("INSERT INTO tickets (query, status) VALUES (?, ?)", (query, "open"))
-    conn.commit()
-    conn.close()
+st.title("💖 Support Assistant")
+st.write('<div class="chat-box"></div>', unsafe_allow_html=True)
 
-st.title("💖 AI Support Assistant")
-st.write("Ask your queries anytime — I will assist you.")
+user_msg = st.text_input("Type your message...", key="msg", placeholder="Ask anything")
 
-# Chat Input
-user_input = st.text_input("Type your message:")
+# Auto suggestions
+if user_msg:
+    matches = difflib.get_close_matches(user_msg, questions, n=5, cutoff=0.2)
+    if matches:
+        selected = st.selectbox("Suggested questions:", matches)
+    else:
+        selected = None
+else:
+    selected = None
 
 if st.button("Send"):
-    if user_input.strip() != "":
-        answer = get_faq_answer(user_input)
+    query = selected if selected else user_msg
+    matched = difflib.get_close_matches(query, questions, n=1, cutoff=0.6)
 
-        if answer:
-            st.success("🤖 " + answer)
-        else:
-            create_ticket(user_input)
-            st.warning("🎫 Your query has been converted into a ticket. Our support team will contact you soon.")
+    if matched:
+        for faq in faqs:
+            if faq["question"] == matched[0]:
+                st.success("💡 Answer: " + faq["answer"])
+    else:
+        st.error("❗ No answer found. Ticket created for support team.")
