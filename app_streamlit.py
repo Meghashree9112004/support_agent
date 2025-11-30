@@ -39,18 +39,3 @@ if st.button("Send"):
         else:
             create_ticket(user_input)
             st.warning("🎫 Your query has been converted into a ticket. Our support team will contact you soon.")
-
-# Admin Section
-with st.expander("Admin Panel"):
-    conn = sqlite3.connect("database.db")
-    tickets = conn.execute("SELECT * FROM tickets").fetchall()
-    conn.close()
-
-    if tickets:
-        for t in tickets:
-            st.write(f"🆔 Ticket ID: {t[0]}")
-            st.write(f"📌 Query: {t[1]}")
-            st.write(f"🔖 Status: {t[2]}")
-            st.write("---")
-    else:
-        st.write("No tickets yet.")
